@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="form-container">
+    <h1>Buscar Usuario y sus Experiencias</h1>
+    
+    <form (submit)="onSearch()">
+      <label for="searchQuery">Nombre de usuario:</label>
+      <input 
+        id="searchQuery"
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        placeholder="Buscar usuario..." 
+        name="searchQuery"
+        required
+      />
+      <button type="submit" class="submit-button">Buscar</button>
+    </form>
+  </div>
+  
+  <div class="lista-usuarios" *ngIf="user">
+    <h2>Experiencias de {{ user?.name }}</h2>
+    
+    <ul *ngIf="experiences.length > 0; else noExperiences">
+      <li *ngFor="let experience of experiences">
+        <div class="user-info">
+          <strong>{{ experience.title }}</strong>
+          <div class="user-details">
+            <p>{{ experience.description }}</p>
+          </div>
+        </div>
+        <div class="button-container">
+          <button class="mostrar-detalles">Mostrar Detalles</button>
+          <button class="eliminar">Eliminar</button>
+          <button class="modificar">Modificar</button>
+        </div>
+      </li>
+    </ul>
+    <ng-template #noExperiences>
+      <p>Este usuario no tiene experiencias registradas.</p>
+    </ng-template>
+  </div>
+  
+  <!-- Si no se encuentra al usuario -->
+  <div *ngIf="userNotFound">
+    <p>No se encontró al usuario.</p>
+  </div>
+</div>
